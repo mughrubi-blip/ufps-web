@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>UFPS Web Scanner</title>
+  <style>
+    body{font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin:0; padding:2rem; background:#0b1220; color:#e6e8ec}
+    .card{max-width:680px; margin:0 auto; background:#111a2e; border:1px solid #1f2b49; border-radius:16px; padding:1.5rem; box-shadow:0 10px 30px rgba(0,0,0,0.35)}
+    h1{margin-top:0; font-size:1.5rem}
+    .row{display:flex; gap:0.75rem; align-items:center; flex-wrap:wrap}
+    input[type=file]{padding:0.75rem; background:#0b1220; border:1px dashed #30406b; border-radius:12px; color:#c7cbd6; width:100%}
+    button{padding:0.8rem 1.1rem; border:none; border-radius:12px; background:#3b82f6; color:white; font-weight:600; cursor:pointer}
+    button:disabled{opacity:.6; cursor:not-allowed}
+    .muted{opacity:.7}
+    .chip{display:inline-flex; gap:.4rem; align-items:center; padding:.35rem .6rem; border-radius:999px; background:#0b1220; border:1px solid #26365f; font-size:.85rem}
+    .footer{margin-top:1rem; font-size:.9rem; color:#9aa5bf}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="row" style="justify-content:space-between">
+      <h1>UFPS Web Scanner</h1>
+      <span class="chip">FastAPI</span>
+    </div>
+    <p class="muted">Upload a file. The site will return a redacted copy.</p>
+
+    <form id="form" method="post" action="/scan" enctype="multipart/form-data" target="_blank">
+      <input type="file" name="file" required />
+      <div class="row" style="margin-top:1rem">
+        <label class="row muted">
+          <input type="radio" name="inline" value="download" checked />
+          Download redacted file
+        </label>
+        <label class="row muted">
+          <input type="radio" name="inline" value="inline" />
+          View in browser (if supported)
+        </label>
+      </div>
+      <div class="row" style="margin-top:1rem">
+        <button id="btn" type="submit">Scan & Redact</button>
+      </div>
+    </form>
+
+    <div class="footer">No files are stored server-side; processing is in-memory and returned immediately.</div>
+  </div>
+  <script>
+    const form = document.getElementById('form');
+    const btn = document.getElementById('btn');
+    form.addEventListener('submit', () => {
+      btn.disabled = true;
+      btn.textContent = 'Processing…';
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.textContent = 'Scan & Redact';
+      }, 4000);
+    });
+  </script>
+</body>
+</html>
