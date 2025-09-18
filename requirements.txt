@@ -4,4 +4,4 @@ jinja2
 python-multipart
 pillow
 pytesseract
-pdf2image
+PyMuPDF==1.24.4
