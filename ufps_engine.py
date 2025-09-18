@@ -5,6 +5,15 @@ from PIL import Image, ImageDraw
 import pytesseract
 from pytesseract import Output
 
+import re, io
+from typing import Tuple
+import fitz  # PyMuPDF
+from PIL import Image, ImageDraw
+import pytesseract
+from pytesseract import Output
+
+pytesseract.pytesseract.tesseract_cmd = "/usr/bin/tesseract"
+
 # Compile sensitive patterns (add more as needed)
 PATTERNS = [
     r"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}",   # emails
